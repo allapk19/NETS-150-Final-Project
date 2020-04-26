@@ -20,10 +20,6 @@ public class DataCollection {
     public House[] getTrainingData(String location) {
         throw new UnsupportedOperationException("TODO: implement");
     }
-    
-    public void main(String args[]) {
-        
-    }
-    
+   
     
 }
