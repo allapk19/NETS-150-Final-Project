@@ -13,12 +13,6 @@ public class House {
         this.setPrice(price);
     }
 
-    @Override
-    public String toString() {
-        return "House [beds=" + beds + ", baths=" + baths + ", squareFootage=" + squareFootage + ", price=" + price
-                + "]";
-    }
-
     public int getBeds() {
         return beds;
     }
@@ -49,6 +43,11 @@ public class House {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    
+    @Override
+    public String toString() {
+    	return "Beds: " + this.beds + ", Baths: " + this.baths + ", Sqr Footage: " + this.squareFootage + ", Price:  " + this.price;
     }
     
 }
