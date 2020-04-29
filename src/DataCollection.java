@@ -13,6 +13,8 @@ public class DataCollection {
     private String baseURL = "https://www.trulia.com/";
     private Document currentDoc;
     
+    ArrayList<House> list;
+    
     public DataCollection(String location)  {
         try {
             String city = location.substring(0, location.indexOf(","));
@@ -20,17 +22,27 @@ public class DataCollection {
             this.baseURL = this.baseURL + state + "/" + city + "/";
             this.currentDoc = Jsoup.connect(this.baseURL).get();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Invalid Location");
         }
     }
     
     public ArrayList<House> getTrainingData() {
-        ArrayList<House> list = new ArrayList<House>();
+        list = new ArrayList<House>();
         
-        String pagesStr = this.currentDoc.select("li[data-testid='pagination-page-link']").last().text();
-        int pages = Integer.parseInt(pagesStr);
+        int pages;
+        
+        try {
+        	String pagesStr = this.currentDoc.select("li[data-testid='pagination-page-link']").last().text();
+            pages = Integer.parseInt(pagesStr);
+        } catch (Exception e) {
+        	System.out.println ("Invalid Location");
+        	return null;
+        }
         
         for (int i = 1; i <= pages; i++) {
+        	if (i == 2) {
+        		break;
+        	}
             Document housesPage = null;
             try {
                 housesPage = Jsoup.connect(this.baseURL + i + "_p").get();
@@ -77,6 +89,40 @@ public class DataCollection {
             }
         }
         return list;
+    }
+    
+    
+    public double getAverageSizeHouse() {
+    	double count = 0;
+    	int size = list.size();
+    	
+    	for (int i = 0; i < list.size(); i++) {
+    		count += list.get(i).getSquareFootage();
+    	}
+    	
+    	return count / size;
+    }
+    
+    public double getAverageBaths() {
+    	double count = 0;
+    	int size = list.size();
+    	
+    	for (int i = 0; i < list.size(); i++) {
+    		count += list.get(i).getBaths();
+    	}
+    	
+    	return count / size;
+    }
+    
+    public double getAverageBeds() {
+    	double count = 0;
+    	int size = list.size();
+    	
+    	for (int i = 0; i < list.size(); i++) {
+    		count += list.get(i).getBeds();
+    	}
+    	
+    	return count / size;
     }
     
 //    public static void main(String args[]) {
