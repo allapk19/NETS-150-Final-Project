@@ -40,9 +40,6 @@ public class DataCollection {
         }
         
         for (int i = 1; i <= pages; i++) {
-        	if (i == 2) {
-        		break;
-        	}
             Document housesPage = null;
             try {
                 housesPage = Jsoup.connect(this.baseURL + i + "_p").get();
