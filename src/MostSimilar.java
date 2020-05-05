@@ -76,11 +76,16 @@ public class MostSimilar {
 		}		
 		
 		//closure
-		g.addEdge(index, g.getSize() - 1, 1);
+		createClosure();
 		mostSimilarHouse = houses.get(index - 3);
 		
 		return similarPrice;
 	}
+	
+	void createClosure(int index) {
+		g.addEdge(index, g.getSize() - 1, 1);
+	}
+	
 	
 	void createGraph() {
 		
