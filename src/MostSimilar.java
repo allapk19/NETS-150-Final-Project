@@ -49,7 +49,7 @@ public class MostSimilar {
 		sc.close();
 		
 		createGraph();
-		System.out.println(mostSimilar());
+		System.out.println("You should price your house at " + mostSimilar());
 		
 	}
 	
