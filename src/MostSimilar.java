@@ -19,7 +19,8 @@ public class MostSimilar {
 		
 		//Get location
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Location");
+		System.out.println("In order to predict the price of your house, we first need some info.");
+		System.out.println("Enter Location in the form of 'city, state'. i.e. Philadelphia, PA");
 		String location = sc.nextLine();
 		
 		//Collect Data
