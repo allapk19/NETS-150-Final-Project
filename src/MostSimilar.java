@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +14,8 @@ public class MostSimilar {
 	double scaleBeds;
 	double scaleBaths;
 	
+	boolean playAgain = true;
+	
 	public MostSimilar() {
 		
 		//Get location
@@ -28,28 +29,43 @@ public class MostSimilar {
 		DataCollection data = new DataCollection(location);
 		this.houses = data.getTrainingData();
 		
-		//Get Bed Info
-		System.out.println("Enter Number of Beds");
-		this.beds = sc.nextInt();
+		while (playAgain) {
+			//Get Bed Info
+			System.out.println("Enter Number of Beds");
+			this.beds = sc.nextInt();
+			
+			//Get Bath info
+			System.out.println("Enter Number of Baths");
+			this.baths = sc.nextInt();
+			
+			//Get Square Footage Info
+			System.out.println("Enter Square Footage number");
+			this.squareFootage = sc.nextInt();
+			
+			
+			//assigns equal to beds, baths, and sqr footage
+			double avgSize = data.getAverageSizeHouse();
+			this.scaleBeds = avgSize / data.getAverageBeds();
+			this.scaleBaths = avgSize / data.getAverageBaths();
+			
+			
+			
+			createGraph();
+			System.out.println("Your house is worth " + mostSimilar());
+			
+			String yn;
+			System.out.println("Would you like to predict the price of another house? (y/n)");
+			yn = sc.next();
+			
+			if (yn.equals("y")) {
+				playAgain = true;
+			} else {
+				playAgain = false;
+			}
 		
-		//Get Bath info
-		System.out.println("Enter Number of Baths");
-		this.baths = sc.nextInt();
-		
-		//Get Square Footage Info
-		System.out.println("Enter Square Footage number");
-		this.squareFootage = sc.nextInt();
-		
-		
-		double avgSize = data.getAverageSizeHouse();
-		this.scaleBeds = avgSize / data.getAverageBeds();
-		this.scaleBaths = avgSize / data.getAverageBaths();
-		
+		}
 		
 		sc.close();
-		
-		createGraph();
-		System.out.println("You should price your house at " + mostSimilar());
 		
 	}
 	
@@ -76,7 +92,7 @@ public class MostSimilar {
 		}		
 		
 		//closure
-		createClosure();
+		createClosure(index);
 		mostSimilarHouse = houses.get(index - 3);
 		
 		return similarPrice;
